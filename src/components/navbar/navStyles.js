@@ -12,6 +12,15 @@ export const Nav = styled.nav`
     justify-content: flex-start;
     border-bottom: 5px solid #DD1540;
 `;
+export const MainLink = styled(Link)`
+    color: #fff;
+    display:flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    flex-grow:2;
+    size: 26px !important;
+`;
 
 export const NavLink = styled(Link)`
     color: #fff;
