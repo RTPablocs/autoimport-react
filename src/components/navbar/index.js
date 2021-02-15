@@ -4,16 +4,17 @@ import {
     NavLink,
     NavMenu,
     NavBtn,
-    NavBtnLink
+    NavBtnLink,
+    MainLink 
 } from "./navStyles";
 
 const Navbar = () => {
     return (
         <>
         <Nav>
-          <NavLink to='/'>
+          <MainLink to='/'>
               Autoimport
-          </NavLink>
+          </MainLink>
           <NavMenu>
             <NavLink to='/ads' activeStyle>
               Ads
