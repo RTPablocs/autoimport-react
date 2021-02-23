@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+import {NavLink} from 'react-router-dom';
 
 export const Container = styled.div`
 display: grid;
@@ -16,13 +17,18 @@ export const Card = styled.div`
     box-shadow: -11px 11px 1px rgba(0, 0, 0, 0.3);
 `;
 
-export const ProductHead = styled.span`
+export const ProductHead = styled(NavLink)`
+  text-decoration: none; 
   padding: 20px 20px 5px 20px;
   display: block;
   font-size: 17px;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
+  
+  &:visited{
+    color: black;
+  }
 `;
 
 export const PriceTag = styled.span`
@@ -36,6 +42,5 @@ export const PriceTag = styled.span`
   color: #fff;
   border-radius: 7px;
   margin-top: -13px;
-  margin-left: -5px;
   box-shadow: -10px 20px 15px -10px rgba(17, 233, 91, 0.3);
 `;

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Card, ProductHead, PriceTag} from "./AdStyles";
+import AdPage from "../../pages/AdPage";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 class AdCards extends Component {
 
@@ -40,13 +42,16 @@ class AdCards extends Component {
         } else {
             return (
                 <Container>
-                    {ads.map(ad => (
-                            <Card key={ad.id}>
-                                <ProductHead>{ad.title}</ProductHead>
-                                <PriceTag>{ad.price}</PriceTag>
-                            </Card>
-                        )
-                    )}
+                    <Router>
+                            {ads.map(ad => (
+                                    <Card key={ad.id}>
+                                        <ProductHead to={'/ad/' + ad.id} state={ad}>{ad.title}</ProductHead>
+                                        <Route exact path='/ad/:id' component={AdPage}/>
+                                        <PriceTag>{ad.price}</PriceTag>
+                                    </Card>
+                                )
+                            )}
+                    </Router>
                 </Container>
             )
         }
