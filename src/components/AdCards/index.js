@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Card, ProductHead, PriceTag } from "./AdStyles";
+import { Container, Card, ProductHead, PriceTag, TextContainer } from "./AdStyles";
 import { BrowserRouter as Router } from 'react-router-dom'
 
 class AdCards extends Component {
@@ -43,6 +43,7 @@ class AdCards extends Component {
                 <Container>{ads.map(ad => (
                     <Card key={ad.id}>
                         <ProductHead to={`/ad/${ad.id}`}>{ad.title}</ProductHead>
+                        <TextContainer>{ad.desc}</TextContainer>
                         <PriceTag>{ad.price}</PriceTag>
                     </Card>
                 )
