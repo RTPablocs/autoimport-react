@@ -10,10 +10,11 @@ class AdPage extends Component {
             loaded: false,
             ad: {}
         }
+        this.params = props.match.params
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/ads/1')
+        fetch(`http://localhost:8080/ads/${this.params.id}`)
             .then(res => res.json())
             .then((result) => {
                 this.setState({
@@ -30,7 +31,6 @@ class AdPage extends Component {
 
     render() {
         const { error, loaded, ad } = this.state;
-        console.log(ad)
         if (error) {
             return (
                 <h2>Error</h2>
