@@ -1,5 +1,13 @@
-import React, { Component } from 'react';
-import {Container, Card, ProductHead, PriceTag, TextContainer, DeleteButton} from "./AdStyles";
+import React, {Component} from 'react';
+import {
+    Container,
+    Card,
+    ProductHead,
+    PriceTag,
+    DeleteButton,
+    FilterForm,
+    FLabel
+} from "./AdStyles";
 import {FontAwesomeIcon as Fa} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
 
@@ -10,9 +18,18 @@ class AdCards extends Component {
         this.state = {
             error: null,
             loaded: false,
-            ads: []
+            ads: [],
+            filterAds: [],
+            filters: {
+                brand: '',
+                model: '',
+                minPrice: '',
+                maxPrice: '',
+            }
         }
         this.removeAd = this.removeAd.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.executeFiltering = this.executeFiltering.bind(this)
     }
 
     componentDidMount() {
@@ -21,7 +38,8 @@ class AdCards extends Component {
             .then((result) => {
                 this.setState({
                     loaded: true,
-                    ads: result.data
+                    ads: result.data,
+                    filterAds: result.data
                 })
             }, (error) => {
                 this.setState({
@@ -31,13 +49,13 @@ class AdCards extends Component {
             })
     }
 
-    removeAd(id, event){
+    removeAd(id, event) {
         event.stopPropagation();
-        fetch(`http://localhost:8080/ads/delete/${id}`,{
+        fetch(`http://localhost:8080/ads/delete/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
-            .then((result) =>{
+            .then((result) => {
                 this.setState({
                     ads: this.state.ads.filter(ad => ad.id !== id)
                 })
@@ -45,8 +63,26 @@ class AdCards extends Component {
 
     }
 
+    executeFiltering(event) {
+        event.preventDefault()
+        this.setState({
+           filterAds: this.state.filterAds.filter(ad => ad.makeName === this.state.filters.brand)
+        })
+
+
+    }
+
+    handleChange(event){
+        this.setState({
+            filters:{
+                brand: event.target.value
+            }
+        })
+    }
+
     render() {
-        const { error, loaded, ads } = this.state;
+        const {error, loaded, filterAds} = this.state;
+        const {brand} = this.state.filters
         if (error) {
             return (
                 <h2>There has been an Error!</h2>
@@ -56,15 +92,32 @@ class AdCards extends Component {
             return (<h2>Loading, please Wait</h2>)
         } else {
             return (
-                <Container>{ads.map(ad => (
-                    <Card key={ad.id}>
-                        <ProductHead to={`/ad/${ad.id}`}>{ad.title}</ProductHead>
-                        <PriceTag>{ad.price}</PriceTag>
-                        <DeleteButton onClick={(event) => {this.removeAd(ad.id, event)}}><Fa icon={faTrash} color="white"/></DeleteButton>
-                    </Card>
-                )
-                )}
-                </Container>
+
+                <div>
+                    <FilterForm onSubmit={this.executeFiltering}>
+                        <FLabel htmlFor="">3D Model</FLabel>
+                        <input type="checkbox"/>
+                        <FLabel htmlFor="">Brand</FLabel>
+                        <input type="text" value={brand} onChange={this.handleChange}/>
+                        <FLabel htmlFor="">Model</FLabel>
+                        <input type="text"/>
+                        <input type="submit" value="Submit"/>
+                    </FilterForm>
+
+                    <Container>
+                        {filterAds.map(ad => (
+                                <Card key={ad.id}>
+                                    <ProductHead to={`/ad/${ad.id}`}>{ad.title}</ProductHead>
+                                    <PriceTag>{ad.price}</PriceTag>
+                                    <DeleteButton onClick={(event) => {
+                                        this.removeAd(ad.id, event)
+                                    }}><Fa icon={faTrash} color="white"/></DeleteButton>
+                                </Card>
+                            )
+                        )}
+                    </Container>
+                </div>
+
             )
         }
     }
