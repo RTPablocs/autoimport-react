@@ -30,6 +30,7 @@ class AdCards extends Component {
         this.removeAd = this.removeAd.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.executeFiltering = this.executeFiltering.bind(this)
+        this.clearFilters = this.clearFilters.bind(this)
     }
 
     componentDidMount() {
@@ -71,6 +72,13 @@ class AdCards extends Component {
 
 
     }
+    clearFilters(event){
+        event.stopPropagation()
+        this.setState({
+            filterAds: this.state.ads
+        })
+        console.log(this.state)
+    }
 
     handleChange(event){
         this.setState({
@@ -102,8 +110,9 @@ class AdCards extends Component {
                         <FLabel htmlFor="">Model</FLabel>
                         <input type="text"/>
                         <input type="submit" value="Submit"/>
-                    </FilterForm>
 
+                    </FilterForm>
+                    <button onClick={this.clearFilters}>Clear</button>
                     <Container>
                         {filterAds.map(ad => (
                                 <Card key={ad.id}>
