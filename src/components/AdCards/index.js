@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Card, ProductHead, PriceTag, TextContainer } from "./AdStyles";
+import {Container, Card, ProductHead, PriceTag, TextContainer, DeleteButton} from "./AdStyles";
+import {FontAwesomeIcon as Fa} from "@fortawesome/react-fontawesome";
+import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
 
 class AdCards extends Component {
 
@@ -31,14 +33,15 @@ class AdCards extends Component {
 
     removeAd(id, event){
         event.stopPropagation();
-        const position = this.state.ads.map(ad => {return ad.id}).indexOf(id)
-        let nAds = this.state.ads.splice(position)
-        this.setState({
-            ads: nAds
-        })
         fetch(`http://localhost:8080/ads/delete/${id}`,{
             method: 'DELETE'
         })
+            .then(res => res.json())
+            .then((result) =>{
+                this.setState({
+                    ads: this.state.ads.filter(ad => ad.id !== id)
+                })
+            })
 
     }
 
@@ -56,9 +59,8 @@ class AdCards extends Component {
                 <Container>{ads.map(ad => (
                     <Card key={ad.id}>
                         <ProductHead to={`/ad/${ad.id}`}>{ad.title}</ProductHead>
-                        <TextContainer>{ad.desc}</TextContainer>
                         <PriceTag>{ad.price}</PriceTag>
-                        <button onClick={(event) => {this.removeAd(ad.id, event)}}>Delete</button>
+                        <DeleteButton onClick={(event) => {this.removeAd(ad.id, event)}}><Fa icon={faTrash} color="white"/></DeleteButton>
                     </Card>
                 )
                 )}
