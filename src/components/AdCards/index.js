@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Card, ProductHead, PriceTag, TextContainer } from "./AdStyles";
-import { BrowserRouter as Router } from 'react-router-dom'
 
 class AdCards extends Component {
 
@@ -11,6 +10,7 @@ class AdCards extends Component {
             loaded: false,
             ads: []
         }
+        this.removeAd = this.removeAd.bind(this)
     }
 
     componentDidMount() {
@@ -29,6 +29,19 @@ class AdCards extends Component {
             })
     }
 
+    removeAd(id, event){
+        event.stopPropagation();
+        const position = this.state.ads.map(ad => {return ad.id}).indexOf(id)
+        let nAds = this.state.ads.splice(position)
+        this.setState({
+            ads: nAds
+        })
+        fetch(`http://localhost:8080/ads/delete/${id}`,{
+            method: 'DELETE'
+        })
+
+    }
+
     render() {
         const { error, loaded, ads } = this.state;
         if (error) {
@@ -45,6 +58,7 @@ class AdCards extends Component {
                         <ProductHead to={`/ad/${ad.id}`}>{ad.title}</ProductHead>
                         <TextContainer>{ad.desc}</TextContainer>
                         <PriceTag>{ad.price}</PriceTag>
+                        <button onClick={(event) => {this.removeAd(ad.id, event)}}>Delete</button>
                     </Card>
                 )
                 )}
