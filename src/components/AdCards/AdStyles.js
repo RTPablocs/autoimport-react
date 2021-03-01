@@ -2,35 +2,36 @@ import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
 
 export const Container = styled.div`
+  top:40px;
   padding: 10px;
-display: grid;
-grid-template-columns: repeat(5, 1fr);
-grid-gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 15px;
 
 `;
 
 export const Card = styled.div`
-    position:relative;
-    width: 280px;
-    height: 350px;
-    margin: 30px auto;
-    border-radius: 25px;
-    box-shadow: -8px 8px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 280px;
+  height: 350px;
+  margin: 30px auto;
+  border-radius: 25px;
+  box-shadow: -8px 8px 1px rgba(0, 0, 0, 0.3);
 `;
 
 export const ProductHead = styled(NavLink)`
-  text-decoration: none; 
+  text-decoration: none;
   position: absolute;
   left: 10px;
-  top:5px;
+  top: 5px;
   padding: 20px 20px 5px 20px;
   display: block;
   font-size: 17px;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
-  
-  &:visited{
+
+  &:visited {
     color: black;
   }
 `;
@@ -60,7 +61,7 @@ export const DeleteButton = styled.button`
   top: 280px;
   width: 44.4px;
   height: 44.4px;
-  right:50px;
+  right: 50px;
   font-size: 24px;
   border-radius: 5px;
   border-color: #DD1540;
@@ -69,5 +70,17 @@ export const CarDesc = styled.p`
   position: absolute;
   top: 15px;
   left: 5px;
-  
+
 `;
+
+export const FilterForm = styled.form`
+  width: 100%;
+  display: inline;
+  height:20px;
+  top: 10px;
+`;
+
+export const FLabel = styled.label`
+  padding-left: 5px;
+  padding-right: 5px;
+`
