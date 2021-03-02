@@ -18,7 +18,6 @@ class CreateForm extends Component {
             headers: {'Content-Type': 'application/json'}
 
         }
-        this.state.id = new RandExp
     }
 
     render() {
