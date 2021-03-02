@@ -2,38 +2,43 @@ import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
 
 export const Container = styled.div`
-display: grid;
-width: max-available;
-grid-template-columns: repeat(6, 1fr);
-grid-gap: 15px;
+  top:40px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 15px;
 
 `;
 
 export const Card = styled.div`
-    width: 280px;
-    height: 500px;
-    margin: 30px auto;
-    border-radius: 25px;
-    box-shadow: -11px 11px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 280px;
+  height: 350px;
+  margin: 30px auto;
+  border-radius: 25px;
+  box-shadow: -8px 8px 1px rgba(0, 0, 0, 0.3);
 `;
 
 export const ProductHead = styled(NavLink)`
-  text-decoration: none; 
+  text-decoration: none;
+  position: absolute;
+  left: 10px;
+  top: 5px;
   padding: 20px 20px 5px 20px;
   display: block;
   font-size: 17px;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
-  
-  &:visited{
+
+  &:visited {
     color: black;
   }
 `;
 
 export const PriceTag = styled.span`
   position: absolute;
-  background: #11e95b;
+  background: #252525;
   padding: 7px 20px;
   text-align: center;
   display: inline-block;
@@ -41,6 +46,41 @@ export const PriceTag = styled.span`
   font-weight: 200;
   color: #fff;
   border-radius: 7px;
-  margin-top: -13px;
-  box-shadow: -10px 20px 15px -10px rgba(17, 233, 91, 0.3);
+  left: 30px;
+  top: 280px;
 `;
+
+export const TextContainer = styled.p`
+  text-align: center;
+  display: inline-block;
+`;
+
+export const DeleteButton = styled.button`
+  background-color: #DD1540;
+  position: absolute;
+  top: 280px;
+  width: 44.4px;
+  height: 44.4px;
+  right: 50px;
+  font-size: 24px;
+  border-radius: 5px;
+  border-color: #DD1540;
+`;
+export const CarDesc = styled.p`
+  position: absolute;
+  top: 15px;
+  left: 5px;
+
+`;
+
+export const FilterForm = styled.form`
+  width: 100%;
+  display: inline;
+  height:20px;
+  top: 10px;
+`;
+
+export const FLabel = styled.label`
+  padding-left: 5px;
+  padding-right: 5px;
+`

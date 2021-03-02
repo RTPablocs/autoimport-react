@@ -3,8 +3,10 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './components/navbar'
 import Home from './pages/home';
 import Shop from './pages/shop'
-import React from "react";
 import AdPage from './pages/AdPage';
+import CreateForm from "./pages/CreateForm";
+import React from "react";
+
 
 function App() {
     return (
@@ -14,6 +16,7 @@ function App() {
             <Route path='/' exact component={Home} />
             <Route path='/ads' exact component={Shop}/>
             <Route path='/ad/:id' component={AdPage}/>
+            <Route path='/new' component={CreateForm}/>
         </Switch>
     </Router>
     );
