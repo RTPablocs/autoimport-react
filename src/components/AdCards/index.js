@@ -20,12 +20,7 @@ class AdCards extends Component {
             loaded: false,
             ads: [],
             filterAds: [],
-            filters: {
-                brand: '',
-                model: '',
-                minPrice: '',
-                maxPrice: '',
-            }
+            filters: {}
         }
         this.removeAd = this.removeAd.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -67,12 +62,19 @@ class AdCards extends Component {
     executeFiltering(event) {
         event.preventDefault()
         this.setState({
-           filterAds: this.state.filterAds.filter(ad => ad.makeName === this.state.filters.brand)
+            filterAds: this.state.filterAds.filter(ad => {
+                for (let key in this.state.filters) {
+                    if (ad[key] === undefined || ad[key] !== this.state.filters[key]) {
+                        return false
+                    }
+                    return true
+                }
+            })
         })
-
-
+        console.log(this.state)
     }
-    clearFilters(event){
+
+    clearFilters(event) {
         event.stopPropagation()
         this.setState({
             filterAds: this.state.ads
@@ -80,17 +82,19 @@ class AdCards extends Component {
         console.log(this.state)
     }
 
-    handleChange(event){
+    handleChange(event) {
+        let value = event.target.value
         this.setState({
-            filters:{
-                brand: event.target.value
+            filters: {
+                [event.target.name]: value
             }
         })
+        console.log(this.state)
     }
 
     render() {
         const {error, loaded, filterAds} = this.state;
-        const {brand} = this.state.filters
+        const {makeName, modelName} = this.state.filters
         if (error) {
             return (
                 <h2>There has been an Error!</h2>
@@ -106,9 +110,9 @@ class AdCards extends Component {
                         <FLabel htmlFor="">3D Model</FLabel>
                         <input type="checkbox"/>
                         <FLabel htmlFor="">Brand</FLabel>
-                        <input type="text" value={brand} onChange={this.handleChange}/>
+                        <input type="text" name="makeName" value={makeName} onChange={this.handleChange}/>
                         <FLabel htmlFor="">Model</FLabel>
-                        <input type="text"/>
+                        <input type="text" name="modelName" value={modelName} onChange={this.handleChange}/>
                         <input type="submit" value="Submit"/>
 
                     </FilterForm>
