@@ -1,0 +1,12 @@
+POST http://localhost:8080/ads/new
+Content-Type: application/json
+
+{
+  "id": "25",
+  "title": "DMC Delorean",
+  "desc": "Fiat panda usado para domingos",
+  "makeName": "DMC",
+  "modelName": "Delorean",
+  "price": "800000",
+  "coords": "A1"
+}
